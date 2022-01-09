@@ -119,10 +119,10 @@ const CatItem = ({ navigation, item }) => {
         <TouchableOpacity onPress={() => navigation.navigate('Details', { title: item.name, itemImg: item.img, description: lorem })}>
           <View style={styles.descTile}>
             <View style={styles.descRow}>
-              <View style={styles.imageView}>
+              <View style={{ ...styles.imageView, flex: 0.3 }} >
                 <Image source={item.img} style={styles.image} />
               </View>
-              <View style={styles.menuText}>
+              <View style={{ ...styles.menuText, flex: 0.7 }}>
                 <Text style={styles.title}>{item.name}</Text>
               </View>
             </View>
@@ -168,17 +168,17 @@ const DescItem = ({ title, description, img }): Node => {
     <View style={styles.background}>
       <View style={styles.descTile}>
         <View style={styles.descRow}>
-          <View style={styles.imageView}>
+          <View style={{ ...styles.imageView, flex: 0.3 }} >
             <Image source={img} style={styles.image} />
           </View>
-          <View style={styles.menuText}>
+          <View style={{ ...styles.menuText, flex: 0.7 }}>
             <Text style={styles.title}>{title}</Text>
 
           </View>
         </View>
         <Text style={styles.description}>{description}</Text>
       </View>
-    </View>
+    </View >
   );
 };
 
