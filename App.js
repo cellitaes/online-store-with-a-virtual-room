@@ -1,11 +1,15 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Button, View, SafeAreaView, StatusBar, ScrollView, TouchableOpacity, StyleSheet, Image, Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Slider from '@react-native-community/slider';
+import * as listOfImages from "./pokoj/index";
 
 import categories from './consts/categories';
 import catList from './consts/catList';
+import images from './consts/images';
 
 
 const DetailsStack = createStackNavigator();
@@ -13,6 +17,7 @@ const DetailsStack = createStackNavigator();
 const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel libero sed tortor suscipit tempus quis sed purus. Ut id dapibus mauris. Pellentesque pharetra fermentum varius. Sed dui sapien, facilisis a metus at, scelerisque congue ex. Etiam vel eros et est hendrerit luctus. Phasellus molestie magna et lectus commodo, nec ultricies augue auctor. Mauris a ultricies est. Integer vulputate nibh arcu, in tincidunt eros tincidunt nec. Maecenas viverra mauris arcu, a laoreet lacus suscipit sit amet. Aliquam rutrum tellus ac nisi tristique tincidunt sit amet non nibh. Nam ornare consequat varius. Suspendisse potenti. Curabitur nec dapibus risus, in hendrerit quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel libero sed tortor suscipit tempus quis sed purus. Ut id dapibus mauris. Pellentesque pharetra fermentum varius. Sed dui sapien, facilisis a metus at, scelerisque congue ex. Etiam vel eros et est hendrerit luctus. Phasellus molestie magna et lectus commodo, nec ultricies augue auctor. Mauris a ultricies est. Integer vulputate nibh arcu, in tincidunt eros tincidunt nec. Maecenas viverra mauris arcu, a laoreet lacus suscipit sit amet. Aliquam rutrum tellus ac nisi tristique tincidunt sit amet non nibh. Nam ornare consequat varius. Suspendisse potenti. Curabitur nec dapibus risus, in hendrerit quam.';
 const cat = categories;
 const listCat = catList;
+const imgList = images;
 
 
 function HomeScreen({ navigation }) {
@@ -252,10 +257,44 @@ function FilmsScreen({ navigation }) {
 }
 
 function RoomScreen({ navigation }) {
+  const [range, setRange] = useState(0);
+
+
+  // const importAll = (r) => {
+  //   return r.keys().map(r);
+  // }
+
+  // const listOfImages = importAll(require.context('./pokoj/', false, /\.(png|jpe?g|svg)$/));
+
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
+    <>
+      <Image source={imgList[range].img} style={{
+        // flex: 1,
+        flexGrow: 1,
+        width: 400,
+        alignItems: 'stretch'
+      }} />
+      <Text style={{ flex: 1, fontSize: 100 }}>{range}</Text>
+      <Slider
+
+        style={{
+          flex: 1, justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          width: 400,
+          height: 40,
+          flexBasis: 100,
+
+        }}
+        minimumValue={0}
+        maximumValue={200}
+        value={1}
+        minimumTrackTintColor="#0000FF"
+        maximumTrackTintColor="#000000"
+        onValueChange={value => setRange(parseInt(value))}
+      />
+
+    </>
   );
 }
 
