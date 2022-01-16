@@ -160,15 +160,17 @@ const Details = ({ navigation, route }): Node => {
             title={route.params.title}
             description={route.params.description}
             img={route.params.itemImg}
+            navigation={navigation}
+            goBack={route.params.goBack}
           />
-          <Text>essa</Text>
         </View>
+
       </ScrollView>
     </SafeAreaView>
   )
 }
 
-const DescItem = ({ title, description, img }): Node => {
+const DescItem = ({ title, description, img, navigation, goBack }): Node => {
   return (
     <View style={styles.background}>
       <View style={styles.descTile}>
@@ -182,6 +184,11 @@ const DescItem = ({ title, description, img }): Node => {
           </View>
         </View>
         <Text style={styles.description}>{description}</Text>
+        {goBack ?
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Button onPress={() => navigation.navigate('Pokój')} title="Go back" />
+          </View>
+          : null}
       </View>
     </View >
   );
@@ -256,16 +263,77 @@ function FilmsScreen({ navigation }) {
   );
 }
 
+function Essa({ navigation, range }) {
+  return (
+    <>
+      {range <= 16 ? <TouchableOpacity
+        onPress={() => navigation.navigate('Details',
+          { title: 'TV', itemImg: require('./TV.jpg'), description: lorem, goBack: true })}
+        style={{
+          position: 'absolute',
+          left: 50,
+          top: 120,
+          width: 280,
+          height: 100,
+          backgroundColor: 'red',
+          opacity: .5,
+          zIndex: 100,
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}><Text style={{
+          color: 'yellow',
+        }}>KLIKNIJ ABY PRZEJSC DO SZCZEGOLOW</Text></TouchableOpacity> : null
+      }
+      {
+        range <= 110 && range >= 90 ? <TouchableOpacity
+          onPress={() => navigation.navigate('Details',
+            { title: 'Regal na ksiazki', itemImg: require('./Regal.jpg'), description: lorem, goBack: true })}
+          style={{
+            position: 'absolute',
+            left: 130,
+            top: 60,
+            width: 250,
+            height: 360,
+            backgroundColor: 'red',
+            opacity: .5,
+            zIndex: 100,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}><Text style={{
+            color: 'yellow',
+          }}>KLIKNIJ ABY PRZEJSC DO SZCZEGOLOW</Text></TouchableOpacity> : null
+      }
+      {
+        range <= 148 && range >= 126 ? <TouchableOpacity
+          onPress={() => navigation.navigate('Details',
+            { title: 'Regal na ksiazki', itemImg: require('./Regal.jpg'), description: lorem, goBack: true })}
+          style={{
+            position: 'absolute',
+            left: 130,
+            top: 100,
+            width: 250,
+            height: 200,
+            backgroundColor: 'red',
+            opacity: .5,
+            zIndex: 100,
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}><Text style={{
+            color: 'yellow',
+          }}>KLIKNIJ ABY PRZEJSC DO SZCZEGOLOW</Text></TouchableOpacity> : null
+      }
+
+
+    </>
+  );
+}
+
+
 function RoomScreen({ navigation }) {
   const [range, setRange] = useState(0);
-
-
-  // const importAll = (r) => {
-  //   return r.keys().map(r);
-  // }
-
-  // const listOfImages = importAll(require.context('./pokoj/', false, /\.(png|jpe?g|svg)$/));
-
 
   return (
     <>
@@ -275,7 +343,10 @@ function RoomScreen({ navigation }) {
         width: 400,
         alignItems: 'stretch'
       }} />
-      <Text style={{ flex: 1, fontSize: 100 }}>{range}</Text>
+
+      <Essa navigation={navigation} range={range} />
+
+      {/* <Text style={{ flex: 1, fontSize: 100, zIndex: 2 }}>{range}</Text> */}
       <Slider
 
         style={{
